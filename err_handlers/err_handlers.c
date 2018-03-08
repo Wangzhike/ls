@@ -1,5 +1,7 @@
 #include "err_handlers.h"
 
+static void err_handle(int errnoflag, int error, const char *fmt, va_list ap);
+
 /*
  * Fatal error unrelated to a system call.
  * Print a message and terminate.
@@ -116,7 +118,7 @@ void err_msg_err(int error, const char *fmt, ...)
  * Print a message and return to caller.
  * Caller specifies "errnoflag".
  */
-void err_handle(int errnoflag, int error, const char *fmt, va_list ap)
+static void err_handle(int errnoflag, int error, const char *fmt, va_list ap)
 {
 	char buf[MAXLINE];
 	vsnprintf(buf, MAXLINE-1, fmt, ap);
